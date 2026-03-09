@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-run:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,15 +17,32 @@ jobs:
       - name: Build Docker Image
         run: docker build -t project .
 
-      # Step 3: Run container locally on the runner
-      - name: Run Docker Container
-        run: |
-          # Stop old container if exists
-          docker stop project-container || true
-          docker rm project-container || true
+      # Step 3: Deploy to EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Create project directory if missing
+            if [ ! -d "/home/ubuntu/Project" ]; then
+              git clone https://github.com/Vishal758168/Library-Project.git /home/ubuntu/Library-Project
+            fi
+            cd /home/ubuntu/Library-Project
 
-          # Run the container
-          docker run -d -p 80:80 --name project-container project
+            # Pull latest code
+            git pull origin main
 
-          # Show running containers
-          docker ps
+            # Stop & remove old container
+            sudo docker stop project-container || true
+            sudo docker rm project-container || true
+
+            # Build Docker image on EC2
+            sudo docker build -t project .
+
+            # Run container
+            sudo docker run -d -p 80:80 --name project-container project
+
+            # Verify it's running
+            sudo docker ps
