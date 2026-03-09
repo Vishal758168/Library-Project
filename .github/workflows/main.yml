@@ -26,7 +26,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Create project directory if missing
-            if [ ! -d "/home/ubuntu/Project" ]; then
+            if [ ! -d "/home/ubuntu/Library-Project" ]; then
               git clone https://github.com/Vishal758168/Library-Project.git /home/ubuntu/Library-Project
             fi
             cd /home/ubuntu/Library-Project
