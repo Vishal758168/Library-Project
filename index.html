@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>City Library</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#catalog">Catalog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h2>Welcome to City Library</h2>
+        <p>Your gateway to knowledge, books, and more!</p>
+    </section>
+
+    <section id="catalog">
+        <h2>Library Catalog</h2>
+        <input type="text" id="search" placeholder="Search for books..." onkeyup="searchBooks()">
+        <ul id="book-list">
+            <li>The Great Gatsby</li>
+            <li>To Kill a Mockingbird</li>
+            <li>1984</li>
+            <li>Harry Potter and the Sorcerer's Stone</li>
+            <li>Pride and Prejudice</li>
+        </ul>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form" onsubmit="submitForm(event)">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 City Library. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
